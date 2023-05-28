@@ -34,6 +34,7 @@ class DetailViewModel(
 
     init {
         inputSearch(searched)
+        
     }
 
     fun inputSearch(code: String){
