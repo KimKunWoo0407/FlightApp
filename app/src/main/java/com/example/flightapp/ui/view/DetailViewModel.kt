@@ -34,7 +34,20 @@ class DetailViewModel(
 
     init {
         inputSearch(searched)
-        
+    }
+
+    fun updateBookMark(route: Route){
+        var newState = uiState.value.copy().routeList.toMutableList()
+        val idx = newState.indexOf(route)
+        val bookMarked = if (route.userId==null) currentUserId else null
+        val checkedRoot = route.copy(userId = bookMarked)
+        newState[idx] = checkedRoot
+        _uiState.update {
+            DetailUiState(newState)
+        }
+        viewModelScope.launch {
+            bookMark(checkedRoot)
+        }
     }
 
     fun inputSearch(code: String){
@@ -49,13 +62,13 @@ class DetailViewModel(
     suspend fun bookMark(route: Route){
         val item = Selected(userId = currentUserId, favoriteCode = route.favoriteCode)
         if(route.userId==null)
-            itemDao.bookMark(item)
-        else
             itemDao.delete(item)
-
+        else
+            itemDao.bookMark(item)
     }
 
     private fun getRouteWithCode(code: String): Flow<List<Route>> = itemDao.getRouteWithCode(code)
 }
 
 data class DetailUiState(val routeList: List<Route> = listOf())
+

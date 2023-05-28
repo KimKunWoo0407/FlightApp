@@ -58,6 +58,6 @@ data class Route(
     @ColumnInfo(name = "destination_name")
     val destinationName: String,
     @ColumnInfo(name = "user_id")
-    val userId: String? = null
+    val userId: Int? = null
 
 )

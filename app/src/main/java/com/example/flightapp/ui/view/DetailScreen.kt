@@ -1,5 +1,6 @@
 package com.example.flightapp.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -58,7 +59,10 @@ fun DetailScreen(
         )
         DetailBody(
             itemList = detailUiState.routeList,
-            onItemClick = {viewModel.bookMark(it)},
+            onItemClick = {
+//                viewModel.bookMark(it)
+                          viewModel.updateBookMark(it)
+                          },
             modifier = modifier.
             padding(15.dp),
         )

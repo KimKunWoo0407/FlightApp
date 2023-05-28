@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Airport::class, Favorite::class, Selected::class], version = 1)
+@Database(entities = [Airport::class, Favorite::class, Selected::class], version = 2)
 abstract class FlightDatabase: RoomDatabase() {
     abstract fun itemDao(): ItemDao
 
@@ -16,7 +16,7 @@ abstract class FlightDatabase: RoomDatabase() {
             return Instance?: synchronized(this){
                 Room.databaseBuilder(context, FlightDatabase::class.java, "app_database")
                     .createFromAsset("database/flight_search.db")
-                    .fallbackToDestructiveMigration()
+//                    .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
             }
